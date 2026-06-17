@@ -8,19 +8,16 @@ enum Commands {
     /// Command to create a recipe given the file path and name
     Create {
         /// Filepath the resulting recipe file will be written to
-        #[arg(long)]
+        #[arg(short, long, default_value = ".")]
         output_filepath: PathBuf,
         /// Name of the recipe to create
-        #[arg(long)]
+        #[arg(short, long)]
         recipe_name: PathBuf,
     },
 }
 
 #[derive(Parser)]
 struct Cli {
-    #[arg(long, default_value = ".")]
-    root: PathBuf,
-
     #[command(subcommand)]
     command: Option<Commands>,
 }
