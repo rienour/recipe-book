@@ -9,7 +9,7 @@ enum Commands {
     /// Command to create a recipe given the file path and name
     Create {
         /// Filepath the resulting recipe file will be written to
-        #[arg(short, long, default_value = ".")]
+        #[arg(short, long)]
         output_filepath: PathBuf,
         /// Name of the recipe to create
         #[arg(short, long)]
