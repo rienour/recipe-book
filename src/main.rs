@@ -1,4 +1,5 @@
-use std::path::PathBuf;
+use std::io::Write;
+use std::{fs::File, path::PathBuf};
 
 use clap::{Parser, Subcommand};
 use uuid::Uuid;
@@ -12,7 +13,7 @@ enum Commands {
         output_filepath: PathBuf,
         /// Name of the recipe to create
         #[arg(short, long)]
-        recipe_name: PathBuf,
+        recipe_name: String,
     },
 }
 
@@ -32,10 +33,18 @@ fn main() {
             output_filepath,
             recipe_name,
         }) => {
-            println!("outdir: {:?}, name: {:?}", output_filepath, recipe_name);
+            // TODO: Resolve using unwrap
+            let mut file = File::create_new(output_filepath).unwrap();
+            file.write(recipe_name.t);
+            file.write(b"\n");
         }
         None => {
             println!("Invalid command");
         }
     }
 }
+
+// fn main() {
+//     let mut file = File::create_new("foo.txt").unwrap();
+//     file.write(b"Test 2").unwrap();
+// }
