@@ -33,18 +33,17 @@ fn main() {
             output_filepath,
             recipe_name,
         }) => {
-            // TODO: Resolve using unwrap
-            let mut file = File::create_new(output_filepath).unwrap();
-            file.write(recipe_name.t);
-            file.write(b"\n");
+            // TODO: Resolve using unwrapping
+            let mut file = match File::create_new(output_filepath) {
+                Ok(file) => file,
+                _ => panic!("Unknown"),
+            };
+            let contents = recipe_name.as_bytes();
+            file.write(contents).unwrap();
+            file.write(b"\n").unwrap();
         }
         None => {
             println!("Invalid command");
         }
     }
 }
-
-// fn main() {
-//     let mut file = File::create_new("foo.txt").unwrap();
-//     file.write(b"Test 2").unwrap();
-// }
