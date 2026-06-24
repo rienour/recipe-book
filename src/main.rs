@@ -36,17 +36,16 @@ fn main() {
             output_filepath,
             recipe_name,
         }) => {
-            // TODO: Resolve using unwrapping
             let mut file = match File::create_new(output_filepath) {
                 Ok(file) => file,
                 _ => panic!("Unknown"),
             };
-            let contents = toml::to_string(&Recipe {
+            let contents = Recipe {
                 title: String::from(recipe_name),
                 ingredients: vec![],
                 steps: vec![],
-            })
-            .unwrap();
+            }
+            .to_string();
             file.write(contents.as_bytes()).unwrap();
             file.write(b"\n").unwrap();
         }

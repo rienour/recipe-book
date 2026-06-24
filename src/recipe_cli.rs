@@ -10,6 +10,13 @@ pub struct Recipe {
     pub steps: Vec<Step>,
 }
 
+impl ToString for Recipe {
+    fn to_string(&self) -> String {
+        // TODO: Resolve needing unwrap
+        toml::to_string(self).unwrap()
+    }
+}
+
 #[derive(Serialize)]
 pub struct Ingredient {
     id: String,
