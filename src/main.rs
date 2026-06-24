@@ -38,7 +38,7 @@ fn main() {
         }) => {
             let mut file = match File::create_new(output_filepath) {
                 Ok(file) => file,
-                _ => panic!("Unknown"),
+                Err(err) => panic!("{}", err),
             };
             let contents = Recipe {
                 title: String::from(recipe_name),
