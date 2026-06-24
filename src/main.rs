@@ -2,6 +2,8 @@ use std::io::Write;
 use std::{fs::File, path::PathBuf};
 
 use clap::{Parser, Subcommand};
+use serde::Serialize;
+use toml::Table;
 use uuid::Uuid;
 
 #[derive(Subcommand)]
@@ -38,9 +40,17 @@ fn main() {
                 Ok(file) => file,
                 _ => panic!("Unknown"),
             };
-            let contents = recipe_name.as_bytes();
-            file.write(contents).unwrap();
+            let contents = toml::to_string(&Recipe {
+                test: String::from("string"),
+                test2: vec![String::from("test"), String::from("hi")],
+            })
+            .unwrap();
+            file.write(contents.as_bytes()).unwrap();
             file.write(b"\n").unwrap();
+            // let value = "foo = 'bar'\n[keys]\ntest = [1, { test = \"hi\"\n, test2 = 2\n }]"
+            //     .parse::<Table>()
+            //     .unwrap();
+            // println!("{:?}", value);
         }
         None => {
             println!("Invalid command");
