@@ -12,3 +12,9 @@ version = "1.23.2"
 features = [
   "v4"
 ]
+
+[dependencies.serde]
+version = "1.0.228"
+features = [
+  "derive"
+]
