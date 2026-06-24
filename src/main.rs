@@ -1,10 +1,11 @@
+mod recipe_cli;
 use std::io::Write;
 use std::{fs::File, path::PathBuf};
 
 use clap::{Parser, Subcommand};
-use serde::Serialize;
-use toml::Table;
 use uuid::Uuid;
+
+use crate::recipe_cli::Recipe;
 
 #[derive(Subcommand)]
 enum Commands {
@@ -41,16 +42,13 @@ fn main() {
                 _ => panic!("Unknown"),
             };
             let contents = toml::to_string(&Recipe {
-                test: String::from("string"),
-                test2: vec![String::from("test"), String::from("hi")],
+                title: String::from(recipe_name),
+                ingredients: vec![],
+                steps: vec![],
             })
             .unwrap();
             file.write(contents.as_bytes()).unwrap();
             file.write(b"\n").unwrap();
-            // let value = "foo = 'bar'\n[keys]\ntest = [1, { test = \"hi\"\n, test2 = 2\n }]"
-            //     .parse::<Table>()
-            //     .unwrap();
-            // println!("{:?}", value);
         }
         None => {
             println!("Invalid command");

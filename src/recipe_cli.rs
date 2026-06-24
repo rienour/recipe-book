@@ -3,11 +3,11 @@ use serde::Serialize;
 #[derive(Serialize)]
 pub struct Recipe {
     // User provided title
-    title: String,
+    pub title: String,
     // List of Ingredients
-    ingredients: Vec<Ingredient>,
+    pub ingredients: Vec<Ingredient>,
     // List of Steps
-    steps: Vec<Step>,
+    pub steps: Vec<Step>,
 }
 
 #[derive(Serialize)]
