@@ -3,7 +3,6 @@ use std::io::Write;
 use std::{fs::File, path::PathBuf};
 
 use clap::{Parser, Subcommand};
-use uuid::Uuid;
 
 use crate::recipe_cli::Recipe;
 
@@ -27,8 +26,6 @@ struct Cli {
 }
 
 fn main() {
-    println!("{}", Uuid::new_v4());
-
     let args = Cli::parse();
 
     match &args.command {
