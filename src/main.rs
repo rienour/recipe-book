@@ -9,7 +9,7 @@ use crate::recipe_cli::{Ingredient, Recipe, Step};
 #[derive(Subcommand)]
 enum Commands {
     /// Command to create a recipe given the file path and name
-    Create {
+    CreateExample {
         /// Filepath the resulting recipe file will be written to
         #[arg(short, long)]
         output_file: PathBuf,
@@ -29,7 +29,7 @@ fn main() {
     let args = Cli::parse();
 
     match &args.command {
-        Some(Commands::Create {
+        Some(Commands::CreateExample {
             output_file,
             recipe_name,
         }) => {
