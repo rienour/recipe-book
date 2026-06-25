@@ -12,7 +12,7 @@ enum Commands {
     Create {
         /// Filepath the resulting recipe file will be written to
         #[arg(short, long)]
-        output_filepath: PathBuf,
+        output_file: PathBuf,
         /// Name of the recipe to create
         #[arg(short, long)]
         recipe_name: String,
@@ -30,10 +30,10 @@ fn main() {
 
     match &args.command {
         Some(Commands::Create {
-            output_filepath,
+            output_file,
             recipe_name,
         }) => {
-            let mut file = match File::create_new(output_filepath) {
+            let mut file = match File::create_new(output_file) {
                 Ok(file) => file,
                 Err(err) => panic!("{}", err),
             };

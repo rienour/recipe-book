@@ -12,7 +12,7 @@ pub struct Recipe {
 
 impl ToString for Recipe {
     fn to_string(&self) -> String {
-        // TODO: Resolve needing unwrap
+        // TODO: Resolve needing unwrap?
         toml::to_string(self).unwrap()
     }
 }
