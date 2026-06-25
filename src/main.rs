@@ -4,7 +4,7 @@ use std::{fs::File, path::PathBuf};
 
 use clap::{Parser, Subcommand};
 
-use crate::recipe_cli::Recipe;
+use crate::recipe_cli::{Ingredient, Recipe, Step};
 
 #[derive(Subcommand)]
 enum Commands {
@@ -39,8 +39,24 @@ fn main() {
             };
             let contents = Recipe {
                 title: String::from(recipe_name),
-                ingredients: vec![],
-                steps: vec![],
+                ingredients: vec![
+                    Ingredient {
+                        id: String::from("example"),
+                        title: String::from("Example Ingredient"),
+                        quantity: 1.0,
+                        unit: String::from("gram"),
+                    },
+                    Ingredient {
+                        id: String::from("example"),
+                        title: String::from("Example Ingredient"),
+                        quantity: 1.0,
+                        unit: String::from("gram"),
+                    },
+                ],
+                steps: vec![Step {
+                    ordinal_position: 1,
+                    description: String::from("Example step detailing information"),
+                }],
             }
             .to_string();
             file.write(contents.as_bytes()).unwrap();
