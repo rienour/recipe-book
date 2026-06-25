@@ -1,6 +1,6 @@
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Recipe {
     // User provided title
     pub title: String,
@@ -17,7 +17,7 @@ impl ToString for Recipe {
     }
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Ingredient {
     pub id: String,
     pub title: String,
@@ -25,7 +25,7 @@ pub struct Ingredient {
     pub unit: String,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Step {
     // Step in the recipe to perform the step
     pub ordinal_position: u16,

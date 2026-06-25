@@ -1,5 +1,5 @@
 mod recipe_cli;
-use std::io::Write;
+use std::io::{Read, Write};
 use std::{fs::File, path::PathBuf};
 
 use clap::{Parser, Subcommand};
@@ -16,6 +16,12 @@ enum Commands {
         /// Name of the recipe to create
         #[arg(short, long)]
         recipe_name: String,
+    },
+    // Verify a recipe is a valid file
+    Verify {
+        /// File to read the recipe from
+        #[arg(short, long)]
+        file: PathBuf,
     },
 }
 
@@ -61,6 +67,18 @@ fn main() {
             .to_string();
             file.write(contents.as_bytes()).unwrap();
             file.write(b"\n").unwrap();
+        }
+        Some(Commands::Verify { file }) => {
+            // TODO: Clean-up implementation
+            let file = file.clone().into_os_string().into_string().unwrap();
+            let mut open_file = File::open(&file).unwrap();
+            let mut file_contents = String::new();
+
+            open_file.read_to_string(&mut file_contents).unwrap();
+            let read_content = toml::from_str::<Recipe>(file_contents.as_mut_str()).unwrap();
+
+            println!("{}", file_contents);
+            println!("{:?}", read_content);
         }
         None => {
             println!("Invalid command");
