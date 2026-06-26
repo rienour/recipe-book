@@ -1,9 +1,12 @@
 use serde::{Deserialize, Serialize};
+use uuid::Uuid;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Recipe {
     // Schema version the recipe was written with
     schema_version: String,
+    // Unique identifier for the recipe
+    id: String,
     // User provided title
     pub title: String,
     // List of Ingredients
@@ -16,6 +19,7 @@ impl Recipe {
     pub fn new(title: String, ingredients: Vec<Ingredient>, steps: Vec<Step>) -> Self {
         Self {
             schema_version: env!("CARGO_PKG_VERSION").to_string(),
+            id: Uuid::new_v4().to_string(),
             title,
             ingredients,
             steps,
