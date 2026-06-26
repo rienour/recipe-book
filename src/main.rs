@@ -8,8 +8,8 @@ use crate::recipe_cli::{Ingredient, Recipe, Step};
 
 #[derive(Subcommand)]
 enum Commands {
-    /// Command to create a recipe given the file path and name
-    CreateExample {
+    /// Command to create a recipe template given the file path and name
+    CreateTemplate {
         /// Filepath the resulting recipe file will be written to
         #[arg(short, long)]
         output_file: PathBuf,
@@ -35,7 +35,7 @@ fn main() {
     let args = Cli::parse();
 
     match &args.command {
-        Some(Commands::CreateExample {
+        Some(Commands::CreateTemplate {
             output_file,
             recipe_name,
         }) => {
@@ -45,20 +45,12 @@ fn main() {
             };
             let contents = Recipe::new(
                 String::from(recipe_name),
-                vec![
-                    Ingredient {
-                        id: String::from("example"),
-                        title: String::from("Example Ingredient"),
-                        quantity: 1.0,
-                        unit: String::from("gram"),
-                    },
-                    Ingredient {
-                        id: String::from("example"),
-                        title: String::from("Example Ingredient"),
-                        quantity: 1.0,
-                        unit: String::from("gram"),
-                    },
-                ],
+                vec![Ingredient {
+                    id: String::from("example"),
+                    title: String::from("Example Ingredient"),
+                    quantity: 1.0,
+                    unit: String::from("gram"),
+                }],
                 vec![Step {
                     ordinal_position: 1,
                     description: String::from("Example step detailing information"),
