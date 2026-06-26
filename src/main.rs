@@ -43,9 +43,9 @@ fn main() {
                 Ok(file) => file,
                 Err(err) => panic!("{}", err),
             };
-            let contents = Recipe {
-                title: String::from(recipe_name),
-                ingredients: vec![
+            let contents = Recipe::new(
+                String::from(recipe_name),
+                vec![
                     Ingredient {
                         id: String::from("example"),
                         title: String::from("Example Ingredient"),
@@ -59,11 +59,11 @@ fn main() {
                         unit: String::from("gram"),
                     },
                 ],
-                steps: vec![Step {
+                vec![Step {
                     ordinal_position: 1,
                     description: String::from("Example step detailing information"),
                 }],
-            }
+            )
             .to_string();
             file.write(contents.as_bytes()).unwrap();
             file.write(b"\n").unwrap();

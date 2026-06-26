@@ -2,12 +2,25 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Recipe {
+    // Schema version the recipe was written with
+    schema_version: String,
     // User provided title
     pub title: String,
     // List of Ingredients
     pub ingredients: Vec<Ingredient>,
     // List of Steps
     pub steps: Vec<Step>,
+}
+
+impl Recipe {
+    pub fn new(title: String, ingredients: Vec<Ingredient>, steps: Vec<Step>) -> Self {
+        Self {
+            schema_version: env!("CARGO_PKG_VERSION").to_string(),
+            title,
+            ingredients,
+            steps,
+        }
+    }
 }
 
 impl ToString for Recipe {
