@@ -75,7 +75,7 @@ fn main() {
             let read_content = toml::from_str::<Recipe>(file_contents.as_mut_str()).unwrap();
 
             println!("{}", file_contents);
-            println!("{:?}", read_content);
+            println!("{:#?}", read_content);
         }
         None => {
             println!("Invalid command");
