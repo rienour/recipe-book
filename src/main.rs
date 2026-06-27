@@ -17,6 +17,8 @@ enum Commands {
         #[arg(short, long)]
         recipe_name: String,
     },
+    /// Command to interactively create a recipe
+    Create {},
     // Verify a recipe is a valid file
     Verify {
         /// File to read the recipe from
@@ -59,6 +61,9 @@ fn main() {
             .to_string();
             file.write(contents.as_bytes()).unwrap();
             file.write(b"\n").unwrap();
+        }
+        Some(Commands::Create {}) => {
+            println!("Create called");
         }
         Some(Commands::Verify { file }) => {
             // TODO: Clean-up implementation
