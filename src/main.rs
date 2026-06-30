@@ -4,7 +4,7 @@ use std::{fs::File, path::PathBuf};
 
 use clap::{Parser, Subcommand};
 
-use crate::recipe_cli::{Ingredient, Recipe, Step};
+use crate::recipe_cli::{Ingredient, Recipe, RecipeBuilder, Step};
 
 #[derive(Subcommand)]
 enum Commands {

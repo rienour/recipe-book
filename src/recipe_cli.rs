@@ -188,4 +188,11 @@ impl StepBuilder {
         self.description = String::default();
         self
     }
+
+    pub fn build(self) -> Step {
+        Step {
+            ordinal_position: self.ordinal_position,
+            description: self.description,
+        }
+    }
 }
