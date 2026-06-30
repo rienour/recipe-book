@@ -34,7 +34,7 @@ impl ToString for Recipe {
     }
 }
 
-struct RecipeBuilder {
+pub struct RecipeBuilder {
     // User provided title
     title: String,
     // List of Ingredients
@@ -44,7 +44,7 @@ struct RecipeBuilder {
 }
 
 impl RecipeBuilder {
-    fn new() -> Self {
+    pub fn new() -> Self {
         Self {
             title: String::default(),
             ingredients: Vec::default(),
@@ -52,39 +52,39 @@ impl RecipeBuilder {
         }
     }
 
-    fn set_title(mut self, title: String) -> Self {
+    pub fn set_title(mut self, title: String) -> Self {
         self.title = title;
         self
     }
 
-    fn set_ingredients(mut self, ingredients: Vec<Ingredient>) -> Self {
+    pub fn set_ingredients(mut self, ingredients: Vec<Ingredient>) -> Self {
         self.ingredients = ingredients;
         self
     }
 
-    fn add_ingredient(mut self, ingredient: Ingredient) -> Self {
+    pub fn add_ingredient(mut self, ingredient: Ingredient) -> Self {
         self.ingredients.push(ingredient);
         self
     }
 
-    fn set_steps(mut self, steps: Vec<Step>) -> Self {
+    pub fn set_steps(mut self, steps: Vec<Step>) -> Self {
         self.steps = steps;
         self
     }
 
-    fn add_step(mut self, step: Step) -> Self {
+    pub fn add_step(mut self, step: Step) -> Self {
         self.steps.push(step);
         self
     }
 
-    fn reset(mut self) -> Self {
+    pub fn reset(mut self) -> Self {
         self.title = String::default();
         self.ingredients = Vec::default();
         self.steps = Vec::default();
         self
     }
 
-    fn build(self) -> Recipe {
+    pub fn build(self) -> Recipe {
         Recipe::new(self.title, self.ingredients, self.steps)
     }
 }
@@ -105,7 +105,7 @@ pub struct IngredientBuilder {
 }
 
 impl IngredientBuilder {
-    fn new() -> Self {
+    pub fn new() -> Self {
         Self {
             id: String::default(),
             title: String::default(),
@@ -114,27 +114,27 @@ impl IngredientBuilder {
         }
     }
 
-    fn set_id(mut self, id: String) -> Self {
+    pub fn set_id(mut self, id: String) -> Self {
         self.id = id;
         self
     }
 
-    fn set_title(mut self, title: String) -> Self {
+    pub fn set_title(mut self, title: String) -> Self {
         self.title = title;
         self
     }
 
-    fn set_quantity(mut self, quantity: f64) -> Self {
+    pub fn set_quantity(mut self, quantity: f64) -> Self {
         self.quantity = quantity;
         self
     }
 
-    fn set_unit(mut self, unit: String) -> Self {
+    pub fn set_unit(mut self, unit: String) -> Self {
         self.unit = unit;
         self
     }
 
-    fn reset(mut self) -> Self {
+    pub fn reset(mut self) -> Self {
         self.id = String::default();
         self.title = String::default();
         self.quantity = f64::default();
@@ -142,7 +142,7 @@ impl IngredientBuilder {
         self
     }
 
-    fn build(self) -> Ingredient {
+    pub fn build(self) -> Ingredient {
         Ingredient {
             id: self.id,
             title: self.title,
@@ -160,30 +160,30 @@ pub struct Step {
     pub description: String,
 }
 
-struct StepBuilder {
+pub struct StepBuilder {
     ordinal_position: u16,
     description: String,
 }
 
 impl StepBuilder {
-    fn new() -> Self {
+    pub fn new() -> Self {
         StepBuilder {
             ordinal_position: u16::default(),
             description: String::default(),
         }
     }
 
-    fn set_ordinal_position(mut self, ordinal_position: u16) -> Self {
+    pub fn set_ordinal_position(mut self, ordinal_position: u16) -> Self {
         self.ordinal_position = ordinal_position;
         self
     }
 
-    fn set_description(mut self, description: String) -> Self {
+    pub fn set_description(mut self, description: String) -> Self {
         self.description = description;
         self
     }
 
-    fn reset(mut self) -> Self {
+    pub fn reset(mut self) -> Self {
         self.ordinal_position = u16::default();
         self.description = String::default();
         self
