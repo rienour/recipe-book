@@ -52,12 +52,12 @@ impl RecipeBuilder {
         }
     }
 
-    fn title(mut self, title: String) -> Self {
+    fn set_title(mut self, title: String) -> Self {
         self.title = title;
         self
     }
 
-    fn ingredients(mut self, ingredients: Vec<Ingredient>) -> Self {
+    fn set_ingredients(mut self, ingredients: Vec<Ingredient>) -> Self {
         self.ingredients = ingredients;
         self
     }
@@ -67,7 +67,7 @@ impl RecipeBuilder {
         self
     }
 
-    fn steps(mut self, steps: Vec<Step>) -> Self {
+    fn set_steps(mut self, steps: Vec<Step>) -> Self {
         self.steps = steps;
         self
     }
@@ -114,22 +114,22 @@ impl IngredientBuilder {
         }
     }
 
-    fn id(mut self, id: String) -> Self {
+    fn set_id(mut self, id: String) -> Self {
         self.id = id;
         self
     }
 
-    fn title(mut self, title: String) -> Self {
+    fn set_title(mut self, title: String) -> Self {
         self.title = title;
         self
     }
 
-    fn quantity(mut self, quantity: f64) -> Self {
+    fn set_quantity(mut self, quantity: f64) -> Self {
         self.quantity = quantity;
         self
     }
 
-    fn unit(mut self, unit: String) -> Self {
+    fn set_unit(mut self, unit: String) -> Self {
         self.unit = unit;
         self
     }
@@ -173,12 +173,12 @@ impl StepBuilder {
         }
     }
 
-    fn ordinal_position(mut self, ordinal_position: u16) -> Self {
+    fn set_ordinal_position(mut self, ordinal_position: u16) -> Self {
         self.ordinal_position = ordinal_position;
         self
     }
 
-    fn description(mut self, description: String) -> Self {
+    fn set_description(mut self, description: String) -> Self {
         self.description = description;
         self
     }
