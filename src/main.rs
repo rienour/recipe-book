@@ -1,5 +1,5 @@
 mod recipe_cli;
-use std::io::{Read, Write};
+use std::io::{self, Read, Write};
 use std::{fs::File, path::PathBuf};
 
 use clap::{Parser, Subcommand};
@@ -63,6 +63,37 @@ fn main() {
             file.write(b"\n").unwrap();
         }
         Some(Commands::Create {}) => {
+            let mut recipe_builder = RecipeBuilder::new();
+            loop {
+                let mut user_input = String::new();
+
+                // TODO: Handle errors better for user feedback
+                io::stdin().read_line(&mut user_input).unwrap();
+
+                // TODO: Investigate better ways of handling. Maybe enum type?
+                match user_input.trim() {
+                    "name" => {
+                        println!("Name called");
+                        // FIXME: Update so moving works correctly
+                        recipe_builder = recipe_builder
+                            .set_title(String::from("Test Title in Wiz"))
+                            .set_title(String::from("Test Title in Wiz"));
+                    }
+                    "save" => {
+                        let mut file = match File::create_new("/tmp/test_looper.toml") {
+                            Ok(file) => file,
+                            Err(err) => panic!("{}", err),
+                        };
+                        let contents = recipe_builder.build().to_string();
+                        file.write(contents.as_bytes()).unwrap();
+                        file.write(b"\n").unwrap();
+                        break;
+                    }
+                    _ => {
+                        println!("Unknown command");
+                    }
+                }
+            }
             println!("Create called");
         }
         Some(Commands::Verify { file }) => {
