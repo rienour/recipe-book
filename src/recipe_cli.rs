@@ -34,6 +34,61 @@ impl ToString for Recipe {
     }
 }
 
+struct RecipeBuilder {
+    // User provided title
+    title: String,
+    // List of Ingredients
+    ingredients: Vec<Ingredient>,
+    // List of Steps
+    steps: Vec<Step>,
+}
+
+impl RecipeBuilder {
+    fn new() -> Self {
+        Self {
+            title: String::default(),
+            ingredients: Vec::default(),
+            steps: Vec::default(),
+        }
+    }
+
+    fn title(mut self, title: String) -> Self {
+        self.title = title;
+        self
+    }
+
+    fn ingredients(mut self, ingredients: Vec<Ingredient>) -> Self {
+        self.ingredients = ingredients;
+        self
+    }
+
+    fn add_ingredient(mut self, ingredient: Ingredient) -> Self {
+        self.ingredients.push(ingredient);
+        self
+    }
+
+    fn steps(mut self, steps: Vec<Step>) -> Self {
+        self.steps = steps;
+        self
+    }
+
+    fn add_step(mut self, step: Step) -> Self {
+        self.steps.push(step);
+        self
+    }
+
+    fn reset(mut self) -> Self {
+        self.title = String::default();
+        self.ingredients = Vec::default();
+        self.steps = Vec::default();
+        self
+    }
+
+    fn build(self) -> Recipe {
+        Recipe::new(self.title, self.ingredients, self.steps)
+    }
+}
+
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Ingredient {
     pub id: String,
@@ -42,10 +97,95 @@ pub struct Ingredient {
     pub unit: String,
 }
 
+pub struct IngredientBuilder {
+    id: String,
+    title: String,
+    quantity: f64,
+    unit: String,
+}
+
+impl IngredientBuilder {
+    fn new() -> Self {
+        Self {
+            id: String::default(),
+            title: String::default(),
+            quantity: f64::default(),
+            unit: String::default(),
+        }
+    }
+
+    fn id(mut self, id: String) -> Self {
+        self.id = id;
+        self
+    }
+
+    fn title(mut self, title: String) -> Self {
+        self.title = title;
+        self
+    }
+
+    fn quantity(mut self, quantity: f64) -> Self {
+        self.quantity = quantity;
+        self
+    }
+
+    fn unit(mut self, unit: String) -> Self {
+        self.unit = unit;
+        self
+    }
+
+    fn reset(mut self) -> Self {
+        self.id = String::default();
+        self.title = String::default();
+        self.quantity = f64::default();
+        self.unit = String::default();
+        self
+    }
+
+    fn build(self) -> Ingredient {
+        Ingredient {
+            id: self.id,
+            title: self.title,
+            quantity: self.quantity,
+            unit: self.unit,
+        }
+    }
+}
+
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Step {
     // Step in the recipe to perform the step
     pub ordinal_position: u16,
     // User facing description of the step
     pub description: String,
+}
+
+struct StepBuilder {
+    ordinal_position: u16,
+    description: String,
+}
+
+impl StepBuilder {
+    fn new() -> Self {
+        StepBuilder {
+            ordinal_position: u16::default(),
+            description: String::default(),
+        }
+    }
+
+    fn ordinal_position(mut self, ordinal_position: u16) -> Self {
+        self.ordinal_position = ordinal_position;
+        self
+    }
+
+    fn description(mut self, description: String) -> Self {
+        self.description = description;
+        self
+    }
+
+    fn reset(mut self) -> Self {
+        self.ordinal_position = u16::default();
+        self.description = String::default();
+        self
+    }
 }
