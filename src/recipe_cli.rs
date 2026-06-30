@@ -1,10 +1,13 @@
+// TODO: Roll builders into associated structs?
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Recipe {
+    // TODO: Move from String to a SemVer type?
     // Schema version the recipe was written with
     schema_version: String,
+    // TODO: Update to use Uuid type with custom serialization?
     // Unique identifier for the recipe
     id: String,
     // User provided title
@@ -93,6 +96,7 @@ impl RecipeBuilder {
 pub struct Ingredient {
     pub id: String,
     pub title: String,
+    // TODO: Update to an Option type with custom serialization?
     pub quantity: f64,
     pub unit: String,
 }
