@@ -64,9 +64,9 @@ fn main() {
         }
         Some(Commands::Create {}) => {
             let mut recipe_builder = RecipeBuilder::new();
-            loop {
-                let mut user_input = String::new();
+            let mut user_input = String::new();
 
+            loop {
                 // TODO: Handle errors better for user feedback
                 io::stdin().read_line(&mut user_input).unwrap();
 
@@ -93,6 +93,8 @@ fn main() {
                         println!("Unknown command");
                     }
                 }
+
+                user_input.clear();
             }
             println!("Create called");
         }
