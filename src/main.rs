@@ -79,6 +79,8 @@ fn main() {
                             .set_title(String::from("Test Title in Wiz"))
                             .set_title(String::from("Test Title in Wiz"));
                     }
+                    "ingredient" => println!("Ingredient addition called"),
+                    "step" => println!("Step addition called"),
                     "save" => {
                         let mut file = match File::create_new("/tmp/test_looper.toml") {
                             Ok(file) => file,
