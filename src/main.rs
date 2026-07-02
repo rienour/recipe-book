@@ -117,3 +117,12 @@ fn main() {
         }
     }
 }
+
+fn prompt_non_empty_string() -> String {
+    let mut user_input = String::new();
+    while user_input.trim().len() == 0 {
+        io::stdin().read_line(&mut user_input).unwrap();
+    }
+
+    user_input
+}
