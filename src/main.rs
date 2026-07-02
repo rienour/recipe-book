@@ -37,6 +37,7 @@ fn main() {
     let args = Cli::parse();
 
     match &args.command {
+        // TODO: Investigate better ways to dispatch commands
         Some(Commands::CreateTemplate {
             output_file,
             recipe_name,
