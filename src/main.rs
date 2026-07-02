@@ -73,11 +73,9 @@ fn main() {
                 // TODO: Investigate better ways of handling. Maybe enum type?
                 match user_input.trim() {
                     "name" => {
-                        println!("Name called");
+                        let name = prompt_non_empty_string();
                         // FIXME: Update so moving works correctly
-                        recipe_builder = recipe_builder
-                            .set_title(String::from("Test Title in Wiz"))
-                            .set_title(String::from("Test Title in Wiz"));
+                        recipe_builder = recipe_builder.set_title(name);
                     }
                     "ingredient" => println!("Ingredient addition called"),
                     "step" => println!("Step addition called"),
