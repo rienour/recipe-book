@@ -30,6 +30,7 @@ impl Recipe {
     }
 }
 
+// TODO: Should this be Display instead?
 impl ToString for Recipe {
     fn to_string(&self) -> String {
         // TODO: Resolve needing unwrap
