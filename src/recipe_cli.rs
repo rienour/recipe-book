@@ -56,32 +56,32 @@ impl RecipeBuilder {
         }
     }
 
-    pub fn set_title(mut self, title: String) -> Self {
+    pub fn set_title(&mut self, title: String) -> &Self {
         self.title = title;
         self
     }
 
-    pub fn set_ingredients(mut self, ingredients: Vec<Ingredient>) -> Self {
+    pub fn set_ingredients(&mut self, ingredients: Vec<Ingredient>) -> &Self {
         self.ingredients = ingredients;
         self
     }
 
-    pub fn add_ingredient(mut self, ingredient: Ingredient) -> Self {
+    pub fn add_ingredient(&mut self, ingredient: Ingredient) -> &Self {
         self.ingredients.push(ingredient);
         self
     }
 
-    pub fn set_steps(mut self, steps: Vec<Step>) -> Self {
+    pub fn set_steps(&mut self, steps: Vec<Step>) -> &Self {
         self.steps = steps;
         self
     }
 
-    pub fn add_step(mut self, step: Step) -> Self {
+    pub fn add_step(&mut self, step: Step) -> &Self {
         self.steps.push(step);
         self
     }
 
-    pub fn reset(mut self) -> Self {
+    pub fn reset(&mut self) -> &Self {
         self.title = String::default();
         self.ingredients = Vec::default();
         self.steps = Vec::default();
