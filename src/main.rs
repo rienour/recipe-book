@@ -136,6 +136,7 @@ fn main() {
                         let contents = recipe_builder.build().to_string();
                         file.write(contents.as_bytes()).unwrap();
                         file.write(b"\n").unwrap();
+                        break;
                     }
                     _ => {
                         println!("{}: Not yet implemented", response);
