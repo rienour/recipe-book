@@ -1,9 +1,14 @@
+mod menu;
 mod recipe_cli;
-use std::io::{self, Read, Write};
+use std::{
+    fmt::{self, Display, Formatter},
+    io::{self, Read, Write},
+};
 use std::{fs::File, path::PathBuf};
 
 use clap::{Parser, Subcommand};
 
+use crate::menu::Menu;
 use crate::recipe_cli::{Ingredient, Recipe, RecipeBuilder, Step};
 
 #[derive(Subcommand)]
@@ -25,6 +30,44 @@ enum Commands {
         #[arg(short, long)]
         file: PathBuf,
     },
+}
+
+// TODO: Move somewhere more appropriate in the Crate?
+#[derive(PartialEq)]
+enum CreateOption {
+    UpdateName,
+    AddStep,
+    AddIngredient,
+    Save,
+    Exit,
+}
+
+impl CreateOption {
+    pub fn description(&self) -> String {
+        match self {
+            CreateOption::UpdateName => "Update Name".to_string(),
+            CreateOption::AddStep => "Add Step".to_string(),
+            CreateOption::AddIngredient => "Add Ingredient".to_string(),
+            CreateOption::Save => "Save".to_string(),
+            CreateOption::Exit => "Exit".to_string(),
+        }
+    }
+
+    pub fn into_vec() -> Vec<CreateOption> {
+        return vec![
+            CreateOption::UpdateName,
+            CreateOption::AddStep,
+            CreateOption::AddIngredient,
+            CreateOption::Save,
+            CreateOption::Exit,
+        ];
+    }
+}
+
+impl Display for CreateOption {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self.description())
+    }
 }
 
 #[derive(Parser)]
@@ -66,21 +109,26 @@ fn main() {
         Some(Commands::Create {}) => {
             let mut recipe_builder = RecipeBuilder::new();
             let mut user_input = String::new();
-
+            let menu = Menu::new("Select an option".to_string(), CreateOption::into_vec());
             loop {
-                // TODO: Handle errors better for user feedback
-                io::stdin().read_line(&mut user_input).unwrap();
+                let response = menu.prompt();
+                match *response {
+                    CreateOption::UpdateName => {
+                        print!("Enter recipe name: ");
+                        // TODO: Use expect?
+                        io::stdout().flush().unwrap();
+                        let mut user_input = String::new();
 
-                // TODO: Investigate better ways of handling. Maybe enum type?
-                match user_input.trim() {
-                    "name" => {
-                        let name = prompt_non_empty_string();
-                        // FIXME: Update so moving works correctly
-                        recipe_builder = recipe_builder.set_title(name);
+                        // TODO: Handle errors better for user feedback
+                        io::stdin().read_line(&mut user_input).unwrap();
+
+                        recipe_builder.set_title(user_input);
                     }
-                    "ingredient" => println!("Ingredient addition called"),
-                    "step" => println!("Step addition called"),
-                    "save" => {
+                    CreateOption::Exit => {
+                        println!("{}", response);
+                        break;
+                    }
+                    CreateOption::Save => {
                         let mut file = match File::create_new("/tmp/test_looper.toml") {
                             Ok(file) => file,
                             Err(err) => panic!("{}", err),
@@ -88,10 +136,9 @@ fn main() {
                         let contents = recipe_builder.build().to_string();
                         file.write(contents.as_bytes()).unwrap();
                         file.write(b"\n").unwrap();
-                        break;
                     }
                     _ => {
-                        println!("Unknown command");
+                        println!("{}: Not yet implemented", response);
                     }
                 }
 
