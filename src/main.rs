@@ -38,7 +38,7 @@ enum CreateOption {
     UpdateName,
     AddStep,
     AddIngredient,
-    Save,
+    SaveAndExit,
     Exit,
 }
 
@@ -48,7 +48,7 @@ impl CreateOption {
             CreateOption::UpdateName => "Update Name".to_string(),
             CreateOption::AddStep => "Add Step".to_string(),
             CreateOption::AddIngredient => "Add Ingredient".to_string(),
-            CreateOption::Save => "Save".to_string(),
+            CreateOption::SaveAndExit => "Save".to_string(),
             CreateOption::Exit => "Exit".to_string(),
         }
     }
@@ -58,7 +58,7 @@ impl CreateOption {
             CreateOption::UpdateName,
             CreateOption::AddStep,
             CreateOption::AddIngredient,
-            CreateOption::Save,
+            CreateOption::SaveAndExit,
             CreateOption::Exit,
         ];
     }
@@ -128,7 +128,7 @@ fn main() {
                         println!("{}", response);
                         break;
                     }
-                    CreateOption::Save => {
+                    CreateOption::SaveAndExit => {
                         let mut file = match File::create_new("/tmp/test_looper.toml") {
                             Ok(file) => file,
                             Err(err) => panic!("{}", err),
@@ -136,6 +136,7 @@ fn main() {
                         let contents = recipe_builder.build().to_string();
                         file.write(contents.as_bytes()).unwrap();
                         file.write(b"\n").unwrap();
+                        break;
                     }
                     _ => {
                         println!("{}: Not yet implemented", response);
