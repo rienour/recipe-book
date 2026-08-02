@@ -138,6 +138,23 @@ fn main() {
                         file.write(b"\n").unwrap();
                         break;
                     }
+                    CreateOption::AddIngredient => {
+                        let ingredient_id = prompt_non_empty_string(
+                            "Enter ingreident id (lowercase, no whitespace):".to_string(),
+                            true,
+                        );
+                        let ingredient_title =
+                            prompt_non_empty_string("Enter ingreident title:".to_string(), true);
+                        let quantity = prompt_float("Enter quantity (decimal value):".to_string());
+                        let unit = prompt_non_empty_string("Enter unit:".to_string(), true);
+
+                        recipe_builder.add_ingredient(Ingredient {
+                            id: ingredient_id,
+                            title: ingredient_title,
+                            quantity,
+                            unit,
+                        });
+                    }
                     _ => {
                         println!("{}: Not yet implemented", response);
                     }
@@ -170,10 +187,9 @@ fn prompt_non_empty_string(prompt: String, same_line: bool) -> String {
     print!("{}", prompt);
     if same_line {
         print!(" ");
-    } else {
-        // TODO: Use expect?
-        io::stdout().flush().unwrap();
     }
+    // TODO: Use expect?
+    io::stdout().flush().unwrap();
 
     let mut user_input = String::new();
     while user_input.trim().len() == 0 {
@@ -186,18 +202,24 @@ fn prompt_non_empty_string(prompt: String, same_line: bool) -> String {
 // TODO: Investigate using generics or traits for increased versatility?
 fn prompt_float(prompt: String) -> f64 {
     print!("{} ", prompt);
+    // TODO: Use expect?
+    io::stdout().flush().unwrap();
 
     let mut user_input = String::new();
 
     loop {
         io::stdin().read_line(&mut user_input).unwrap();
 
-        let result = user_input.parse::<f64>();
+        let result = user_input.trim().parse::<f64>();
         match result {
             Ok(result) => {
                 return result;
             }
-            Err(_) => {
+            Err(err) => {
+                print!("{} ", prompt);
+                // TODO: Use expect?
+                io::stdout().flush().unwrap();
+
                 println!("Enter a valid decimal value");
             }
         }
