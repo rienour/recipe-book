@@ -102,102 +102,10 @@ pub struct Ingredient {
     pub unit: String,
 }
 
-pub struct IngredientBuilder {
-    id: String,
-    title: String,
-    quantity: f64,
-    unit: String,
-}
-
-impl IngredientBuilder {
-    pub fn new() -> Self {
-        Self {
-            id: String::default(),
-            title: String::default(),
-            quantity: f64::default(),
-            unit: String::default(),
-        }
-    }
-
-    pub fn set_id(mut self, id: String) -> Self {
-        self.id = id;
-        self
-    }
-
-    pub fn set_title(mut self, title: String) -> Self {
-        self.title = title;
-        self
-    }
-
-    pub fn set_quantity(mut self, quantity: f64) -> Self {
-        self.quantity = quantity;
-        self
-    }
-
-    pub fn set_unit(mut self, unit: String) -> Self {
-        self.unit = unit;
-        self
-    }
-
-    pub fn reset(mut self) -> Self {
-        self.id = String::default();
-        self.title = String::default();
-        self.quantity = f64::default();
-        self.unit = String::default();
-        self
-    }
-
-    pub fn build(self) -> Ingredient {
-        Ingredient {
-            id: self.id,
-            title: self.title,
-            quantity: self.quantity,
-            unit: self.unit,
-        }
-    }
-}
-
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Step {
     // Step in the recipe to perform the step
     pub ordinal_position: u16,
     // User facing description of the step
     pub description: String,
-}
-
-pub struct StepBuilder {
-    ordinal_position: u16,
-    description: String,
-}
-
-impl StepBuilder {
-    pub fn new() -> Self {
-        StepBuilder {
-            ordinal_position: u16::default(),
-            description: String::default(),
-        }
-    }
-
-    pub fn set_ordinal_position(mut self, ordinal_position: u16) -> Self {
-        self.ordinal_position = ordinal_position;
-        self
-    }
-
-    pub fn set_description(mut self, description: String) -> Self {
-        self.description = description;
-        self
-    }
-
-    pub fn reset(mut self) -> Self {
-        self.ordinal_position = u16::default();
-        self.description = String::default();
-        self
-    }
-
-    pub fn build(self) -> Step {
-        Step {
-            ordinal_position: self.ordinal_position,
-            description: self.description,
-        }
-    }
 }
