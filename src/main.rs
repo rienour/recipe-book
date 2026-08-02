@@ -165,6 +165,7 @@ fn main() {
     }
 }
 
+// TODO: Investigate using generics or traits for increased versatility?
 fn prompt_non_empty_string(prompt: String, same_line: bool) -> String {
     print!("{}", prompt);
     if same_line {
