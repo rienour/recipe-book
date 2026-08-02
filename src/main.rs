@@ -114,10 +114,8 @@ fn main() {
                 let response = menu.prompt();
                 match *response {
                     CreateOption::UpdateName => {
-                        print!("Enter recipe name: ");
-                        // TODO: Use expect?
-                        io::stdout().flush().unwrap();
-                        let user_input = prompt_non_empty_string();
+                        let user_input =
+                            prompt_non_empty_string("Enter recipe name:".to_string(), true);
 
                         recipe_builder.set_title(user_input);
                     }
@@ -163,7 +161,15 @@ fn main() {
     }
 }
 
-fn prompt_non_empty_string() -> String {
+fn prompt_non_empty_string(prompt: String, same_line: bool) -> String {
+    print!("{}", prompt);
+    if same_line {
+        print!(" ");
+    } else {
+        // TODO: Use expect?
+        io::stdout().flush().unwrap();
+    }
+
     let mut user_input = String::new();
     while user_input.trim().len() == 0 {
         io::stdin().read_line(&mut user_input).unwrap();
