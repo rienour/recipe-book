@@ -128,6 +128,7 @@ fn main() {
                     CreateOption::SaveAndExit => {
                         let mut file = match File::create_new("/tmp/test_looper.toml") {
                             Ok(file) => file,
+                            // TODO: Update to gracefully handle and provide more user feedback
                             Err(err) => panic!("{}", err),
                         };
                         let contents = recipe_builder.build().to_string();
