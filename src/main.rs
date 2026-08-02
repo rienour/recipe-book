@@ -182,3 +182,24 @@ fn prompt_non_empty_string(prompt: String, same_line: bool) -> String {
 
     user_input
 }
+
+// TODO: Investigate using generics or traits for increased versatility?
+fn prompt_float(prompt: String) -> f64 {
+    print!("{} ", prompt);
+
+    let mut user_input = String::new();
+
+    loop {
+        io::stdin().read_line(&mut user_input).unwrap();
+
+        let result = user_input.parse::<f64>();
+        match result {
+            Ok(result) => {
+                return result;
+            }
+            Err(_) => {
+                println!("Enter a valid decimal value");
+            }
+        }
+    }
+}
