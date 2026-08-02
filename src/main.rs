@@ -124,7 +124,11 @@ fn main() {
                         break;
                     }
                     CreateOption::SaveAndExit => {
-                        let mut file = match File::create_new("/tmp/test_looper.toml") {
+                        // TODO: Update to handle validating the string is a valid file path?
+                        let user_input =
+                            prompt_non_empty_string("Enter filepath:".to_string(), true);
+
+                        let mut file = match File::create_new(user_input) {
                             Ok(file) => file,
                             // TODO: Update to gracefully handle and provide more user feedback
                             Err(err) => panic!("{}", err),
