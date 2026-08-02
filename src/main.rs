@@ -117,10 +117,7 @@ fn main() {
                         print!("Enter recipe name: ");
                         // TODO: Use expect?
                         io::stdout().flush().unwrap();
-                        let mut user_input = String::new();
-
-                        // TODO: Handle errors better for user feedback
-                        io::stdin().read_line(&mut user_input).unwrap();
+                        let user_input = prompt_non_empty_string();
 
                         recipe_builder.set_title(user_input);
                     }
