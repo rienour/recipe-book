@@ -215,7 +215,8 @@ fn prompt_float(prompt: String) -> f64 {
             Ok(result) => {
                 return result;
             }
-            Err(err) => {
+            // TODO: Add better user feedback
+            Err(_err) => {
                 print!("{} ", prompt);
                 // TODO: Use expect?
                 io::stdout().flush().unwrap();
