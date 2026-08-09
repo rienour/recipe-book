@@ -155,8 +155,14 @@ fn main() {
                             unit,
                         });
                     }
-                    _ => {
-                        println!("{}: Not yet implemented", response);
+                    CreateOption::AddStep => {
+                        let description =
+                            prompt_non_empty_string("Enter step description:".to_string(), true);
+
+                        recipe_builder.add_step(Step {
+                            ordinal_position: recipe_builder.step_count() + 1,
+                            description,
+                        });
                     }
                 }
 
