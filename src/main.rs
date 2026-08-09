@@ -196,7 +196,7 @@ fn prompt_non_empty_string(prompt: String, same_line: bool) -> String {
         io::stdin().read_line(&mut user_input).unwrap();
     }
 
-    user_input
+    user_input.trim().to_string()
 }
 
 // TODO: Investigate using generics or traits for increased versatility?
