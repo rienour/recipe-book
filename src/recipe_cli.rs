@@ -71,6 +71,11 @@ impl RecipeBuilder {
         self
     }
 
+    pub fn step_count(&self) -> u16 {
+        // TODO: Review typing to determine if u16 is the proper type for this field
+        self.steps.len().try_into().unwrap()
+    }
+
     pub fn build(self) -> Recipe {
         Recipe::new(self.title, self.ingredients, self.steps)
     }
