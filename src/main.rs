@@ -140,7 +140,7 @@ fn main() {
                     }
                     CreateOption::AddIngredient => {
                         let ingredient_id = prompt_non_empty_string(
-                            "Enter ingreident id (lowercase, no whitespace):".to_string(),
+                            "Enter ingriedent id (lowercase, no whitespace):".to_string(),
                             true,
                         );
                         let ingredient_title =
