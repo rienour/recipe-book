@@ -144,7 +144,7 @@ fn main() {
                             true,
                         );
                         let ingredient_title =
-                            prompt_non_empty_string("Enter ingreident title:".to_string(), true);
+                            prompt_non_empty_string("Enter ingredient title:".to_string(), true);
                         let quantity = prompt_float("Enter quantity (decimal value):".to_string());
                         let unit = prompt_non_empty_string("Enter unit:".to_string(), true);
 
