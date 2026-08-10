@@ -1,5 +1,5 @@
 mod menu;
-mod recipe_cli;
+mod models;
 use std::{
     fmt::{self, Display, Formatter},
     io::{self, Read, Write},
@@ -9,7 +9,7 @@ use std::{fs::File, path::PathBuf};
 use clap::{Parser, Subcommand};
 
 use crate::menu::Menu;
-use crate::recipe_cli::{Ingredient, Recipe, RecipeBuilder, Step};
+use crate::models::{Ingredient, Recipe, RecipeBuilder, Step};
 
 #[derive(Subcommand)]
 enum Commands {
