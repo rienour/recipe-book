@@ -1,8 +1,9 @@
 mod menu;
 mod models;
+mod prompt;
 use std::{
     fmt::{self, Display, Formatter},
-    io::{self, Read, Write},
+    io::{Read, Write},
 };
 use std::{fs::File, path::PathBuf};
 
@@ -115,7 +116,7 @@ fn main() {
                 match *response {
                     CreateOption::UpdateName => {
                         let user_input =
-                            prompt_non_empty_string("Enter recipe name:".to_string(), true);
+                            prompt::prompt_non_empty_string("Enter recipe name:".to_string(), true);
 
                         recipe_builder.set_title(user_input);
                     }
@@ -126,7 +127,7 @@ fn main() {
                     CreateOption::SaveAndExit => {
                         // TODO: Update to handle validating the string is a valid file path?
                         let user_input =
-                            prompt_non_empty_string("Enter filepath:".to_string(), true);
+                            prompt::prompt_non_empty_string("Enter filepath:".to_string(), true);
 
                         let mut file = match File::create_new(user_input) {
                             Ok(file) => file,
@@ -139,14 +140,17 @@ fn main() {
                         break;
                     }
                     CreateOption::AddIngredient => {
-                        let ingredient_id = prompt_non_empty_string(
+                        let ingredient_id = prompt::prompt_non_empty_string(
                             "Enter ingredient id (lowercase, no whitespace):".to_string(),
                             true,
                         );
-                        let ingredient_title =
-                            prompt_non_empty_string("Enter ingredient title:".to_string(), true);
-                        let quantity = prompt_float("Enter quantity (decimal value):".to_string());
-                        let unit = prompt_non_empty_string("Enter unit:".to_string(), true);
+                        let ingredient_title = prompt::prompt_non_empty_string(
+                            "Enter ingredient title:".to_string(),
+                            true,
+                        );
+                        let quantity =
+                            prompt::prompt_float("Enter quantity (decimal value):".to_string());
+                        let unit = prompt::prompt_non_empty_string("Enter unit:".to_string(), true);
 
                         recipe_builder.add_ingredient(Ingredient {
                             id: ingredient_id,
@@ -156,8 +160,10 @@ fn main() {
                         });
                     }
                     CreateOption::AddStep => {
-                        let description =
-                            prompt_non_empty_string("Enter step description:".to_string(), true);
+                        let description = prompt::prompt_non_empty_string(
+                            "Enter step description:".to_string(),
+                            true,
+                        );
 
                         recipe_builder.add_step(Step {
                             ordinal_position: recipe_builder.step_count() + 1,
@@ -184,51 +190,6 @@ fn main() {
         }
         None => {
             println!("Invalid command");
-        }
-    }
-}
-
-// TODO: Investigate using generics or traits for increased versatility?
-fn prompt_non_empty_string(prompt: String, same_line: bool) -> String {
-    print!("{}", prompt);
-    if same_line {
-        print!(" ");
-    }
-    // TODO: Use expect?
-    io::stdout().flush().unwrap();
-
-    let mut user_input = String::new();
-    while user_input.trim().len() == 0 {
-        io::stdin().read_line(&mut user_input).unwrap();
-    }
-
-    user_input.trim().to_string()
-}
-
-// TODO: Investigate using generics or traits for increased versatility?
-fn prompt_float(prompt: String) -> f64 {
-    print!("{} ", prompt);
-    // TODO: Use expect?
-    io::stdout().flush().unwrap();
-
-    let mut user_input = String::new();
-
-    loop {
-        io::stdin().read_line(&mut user_input).unwrap();
-
-        let result = user_input.trim().parse::<f64>();
-        match result {
-            Ok(result) => {
-                return result;
-            }
-            // TODO: Add better user feedback
-            Err(_err) => {
-                print!("{} ", prompt);
-                // TODO: Use expect?
-                io::stdout().flush().unwrap();
-
-                println!("Enter a valid decimal value");
-            }
         }
     }
 }

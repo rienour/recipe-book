@@ -1,4 +1,7 @@
-use std::{fmt::Display, io};
+use std::{
+    fmt::Display,
+    io::{self},
+};
 
 pub struct Menu<T: Display> {
     prompt_text: String,
